@@ -1,0 +1,20 @@
+// =============================================================================
+// FightSight - Win32 resource script
+// -----------------------------------------------------------------------------
+// Embeds the application icon into the compiled .exe so Windows Explorer,
+// the taskbar, and Alt+Tab all show the FightSight branding instead of the
+// generic default.
+//
+// Conventions:
+//   * The icon resource MUST be id 1 (or have the alphabetically-first
+//     name) - Windows picks the executable's display icon by sorting all
+//     RT_ICON resources and using the first match. Using IDI_ICON1=1 is
+//     the canonical way to guarantee that ordering.
+//   * The path is relative to THIS .rc file (src/), so icon.ico needs to
+//     live alongside resource.rc. If you want to move the .ico to the
+//     project root, change the path below to "../icon.ico".
+// =============================================================================
+
+#define IDI_ICON1 1
+
+IDI_ICON1 ICON "icon.ico"

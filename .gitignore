@@ -1,0 +1,32 @@
+build/
+out/
+.vs/
+.vscode/
+*.user
+CMakeUserPresets.json
+_deps/
+lib/Spout2/
+
+# ImGui runtime layout state (regenerated every launch)
+imgui.ini
+
+# Windows shortcuts
+*.lnk
+
+# Runtime user data
+templates/*
+!templates/.gitkeep
+tessdata/*
+!tessdata/.gitkeep
+screen_shots/
+
+# Common build / IDE noise
+*.obj
+*.lib
+*.exe
+*.pdb
+*.idb
+*.ilk
+*.exp
+Thumbs.db
+.DS_Store

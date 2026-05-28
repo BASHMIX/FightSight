@@ -1,0 +1,63 @@
+{
+  "cv": {
+    "target_hz": 30
+  },
+  "rois": [
+    {
+      "fire_when_above": true,
+      "h": 379,
+      "id": 4,
+      "name": "ROI 4",
+      "threshold": 0.8500000238418579,
+      "type": "Text",
+      "w": 888,
+      "x": 516,
+      "y": 353
+    },
+    {
+      "fire_when_above": true,
+      "h": 61,
+      "id": 5,
+      "name": "ROI 5",
+      "threshold": 0.8500000238418579,
+      "type": "Gradient",
+      "w": 697,
+      "x": 1053,
+      "y": 46
+    },
+    {
+      "fire_when_above": true,
+      "h": 64,
+      "id": 6,
+      "name": "ROI 6",
+      "threshold": 0.8500000238418579,
+      "type": "Gradient",
+      "w": 717,
+      "x": 158,
+      "y": 48
+    },
+    {
+      "fire_when_above": true,
+      "h": 87,
+      "id": 7,
+      "name": "ROI 7",
+      "threshold": 0.8500000238418579,
+      "type": "Pixel",
+      "w": 112,
+      "x": 1722,
+      "y": 822
+    }
+  ],
+  "spout": {
+    "receiver_name": ""
+  },
+  "version": 1,
+  "viewport": {
+    "force_1080p": true
+  },
+  "websocket": {
+    "endpoint": "/",
+    "host": "127.0.0.1",
+    "port": 8080
+  }
+}
