@@ -1,32 +1,76 @@
+# =============================================================================
+# FightSight .gitignore
+# Combines the project-specific exclusions with the C++ generic template
+# patterns the GitHub repo was seeded with.
+# =============================================================================
+
+# ---- Build & IDE ------------------------------------------------------------
 build/
+Build/
+build-*/
 out/
 .vs/
 .vscode/
+.cache/
 *.user
 CMakeUserPresets.json
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+Makefile
+Testing/
+
+# ---- Dependencies -----------------------------------------------------------
 _deps/
 lib/Spout2/
+vcpkg_installed/
 
-# ImGui runtime layout state (regenerated every launch)
+# ---- ImGui runtime layout state (regenerated every launch) ------------------
 imgui.ini
 
-# Windows shortcuts
+# ---- Windows shortcuts ------------------------------------------------------
 *.lnk
 
-# Runtime user data
+# ---- Runtime user data ------------------------------------------------------
 templates/*
 !templates/.gitkeep
 tessdata/*
 !tessdata/.gitkeep
 screen_shots/
 
-# Common build / IDE noise
+# ---- Build artifacts (object/lib/exe/debug) ---------------------------------
+*.d
+*.slo
+*.lo
+*.o
 *.obj
+*.gch
+*.pch
+*.mod
+*.smod
+*.lai
+*.la
+*.a
 *.lib
+*.so
+*.so.*
+*.dylib
+*.dll
 *.exe
+*.out
+*.app
 *.pdb
 *.idb
 *.ilk
 *.exp
+*.dwo
+
+# ---- Editor / temp ----------------------------------------------------------
+*.tmp
+*.log
+*.bak
+*.swp
 Thumbs.db
 .DS_Store
