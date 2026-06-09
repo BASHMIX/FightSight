@@ -113,10 +113,12 @@ std::string BuildDoActionJson(const Roi& roi,
 // Pipeline:
 //   1. Grayscale
 //   2. Otsu binary threshold (auto-picks the cutoff per crop)
-//   3. Tesseract: LSTM-only, single-line PSM, digits/dash/space whitelist
+//   3. Tesseract: LSTM-only, single-line PSM, caller-supplied whitelist
+//      (empty whitelist = unrestricted recognition: full alphabet/words)
 //   4. Trim the UTF-8 result and ship a flat {event, score} payload.
 void RunOcrAndSend(cv::Mat       bgrCrop,
                    std::string   actionName,
+                   std::string   whitelist,
                    WsClient*     ws) {
     try {
         if (bgrCrop.empty() || !ws) return;
@@ -148,7 +150,11 @@ void RunOcrAndSend(cv::Mat       bgrCrop,
             return;
         }
         api.SetPageSegMode(tesseract::PSM_SINGLE_LINE);
-        api.SetVariable("tessedit_char_whitelist", "0123456789- ");
+        // Empty whitelist => skip the call entirely so Tesseract recognizes
+        // the full character set (letters, digits, punctuation). A non-empty
+        // whitelist restricts output to exactly those characters.
+        if (!whitelist.empty())
+            api.SetVariable("tessedit_char_whitelist", whitelist.c_str());
 
         // Feed the binarized image directly. step = number of bytes per
         // row (handles padded Mats correctly); 1 byte per pixel.
@@ -506,6 +512,7 @@ void CvWorker::Run() {
                         std::thread(RunOcrAndSend,
                                     std::move(cropBgr),
                                     std::move(actionName),
+                                    zone->ocr_whitelist,
                                     &m_ws).detach();
                     }
                 }

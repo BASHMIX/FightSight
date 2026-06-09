@@ -1602,6 +1602,39 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR, int) {
                             "runs on this ROI; it just defines the area "
                             "Tesseract will read when its linked Text "
                             "trigger fires.");
+                        ImGui::Separator();
+
+                        // ---- Tesseract character whitelist ----
+                        // Restricts what characters the OCR may return.
+                        // Leave EMPTY to read full words (all letters).
+                        {
+                            char wlBuf[128];
+                            std::snprintf(wlBuf, sizeof(wlBuf),
+                                          "%s", roi->ocr_whitelist.c_str());
+                            ImGui::SetNextItemWidth(240);
+                            if (ImGui::InputTextWithHint(
+                                    "Char Whitelist", "(empty = read all chars)",
+                                    wlBuf, sizeof(wlBuf))) {
+                                roi->ocr_whitelist = wlBuf;
+                            }
+                            // One-click presets for the common cases.
+                            if (ImGui::SmallButton("Digits only")) {
+                                roi->ocr_whitelist = "0123456789- ";
+                            }
+                            ImGui::SameLine();
+                            if (ImGui::SmallButton("Letters + digits")) {
+                                roi->ocr_whitelist.clear();
+                            }
+                            if (roi->ocr_whitelist.empty()) {
+                                ImGui::TextDisabled(
+                                    "Unrestricted: reads full words / "
+                                    "alphabet.");
+                            } else {
+                                ImGui::TextDisabled(
+                                    "Only these characters will be "
+                                    "returned.");
+                            }
+                        }
                         break;
                     }
                     // -----------------------------------------------

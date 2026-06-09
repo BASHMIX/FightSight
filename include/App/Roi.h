@@ -126,6 +126,14 @@ struct Roi {
     // ---- Pixel: target colour for mean-BGR similarity ----
     int target_bgr[3] = {255, 255, 255};
 
+    // ---- OcrZone: Tesseract character whitelist ----
+    // Restricts which characters Tesseract is allowed to return when this
+    // OcrZone is read by a linked Text ROI. Default preserves the Phase 11
+    // behaviour (digits, dash, space) so existing configs are unchanged.
+    // An EMPTY string disables the whitelist entirely -> Tesseract reads
+    // the full alphabet, punctuation, etc. (use for actual words / names).
+    std::string ocr_whitelist = "0123456789- ";
+
     // ---- Phase 6: game-state context & VFX occlusion handling ----
     // Drop-Only ("low-watermark") locks the published Value to its lowest
     // seen reading until a MatchStart ROI fires - prevents super-move VFX
@@ -191,6 +199,8 @@ struct Roi {
             {"ignore_color",    ignore_color},
 
             {"target_bgr",     {target_bgr[0], target_bgr[1], target_bgr[2]}},
+
+            {"ocr_whitelist",  ocr_whitelist},
 
             {"drop_only",      drop_only},
             {"system_role",    SystemRoleName(system_role)},
@@ -282,6 +292,9 @@ struct Roi {
         // ---- Pixel target ----
         if (j.contains("target_bgr"))
             loadTriple(j["target_bgr"], r.target_bgr, 255, 255, 255);
+
+        // ---- OcrZone whitelist (default = digits/dash/space) ----
+        r.ocr_whitelist = j.value("ocr_whitelist", std::string{"0123456789- "});
 
         // ---- Game-state context ----
         r.drop_only   = j.value("drop_only", false);
